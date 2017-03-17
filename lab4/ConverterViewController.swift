@@ -31,6 +31,9 @@ class ConverterViewController: UIViewController {
         } else {
             result = Double(textFieldBYN.text!)
             result = (result == 0) ? 1 : result
+            if (result! < 0 || result! >= 100000000) {
+                result = nil
+            }
         }
         return result
     }

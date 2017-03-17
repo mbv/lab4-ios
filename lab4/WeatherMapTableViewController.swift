@@ -11,13 +11,14 @@ import MapKit
 import CoreLocation
 
 
-class WeatherMapTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,WeatherReloadAsyncDelegate {
+class WeatherMapTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WeatherReloadAsyncDelegate, ShowErrorDelegate {
     var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     
     var weatherModel : WeatherModel? = WeatherModel.sharedInstance
+    let alertController = UIAlertController(title: "Error", message: "Can't get weather info", preferredStyle: .alert)
     
     
     func reloadWeather() {
@@ -28,14 +29,25 @@ class WeatherMapTableViewController: UIViewController, UITableViewDelegate, UITa
     func onError() {
         self.refreshControl.endRefreshing()
     }
+    
+    private func setActionForAlertController() {
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+    }
+    
+    func showError() {
+        present(alertController, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setActionForAlertController()
         self.tableView.dataSource = self
         self.tableView.delegate = self
 
         weatherModel?.addReloadDelegate(reloadDelegate: self)
+        weatherModel?.setErrorDelegate(errorDelegate: self)
         weatherModel?.refresh()
         
         refreshControl.addTarget(self, action: #selector(WeatherMapTableViewController.startRefresh), for: UIControlEvents.valueChanged)

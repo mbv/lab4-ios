@@ -12,13 +12,6 @@ class UserTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSwipeGesture()
-        // [Maybe you don't have a navigation controller] yNavBar indicates the height of the navigation bar.
-        /*let yNavBar = self.navigationController?.navigationBar.frame.size.height
-        // yStatusBar indicates the height of the status bar
-        let yStatusBar = UIApplication.shared.statusBarFrame.size.height
-        // Set the size and the position in the screen of the tab bar
-        let point = CGPoint(x:0, y:yNavBar! + yStatusBar + (tabBarController?.tabBar.frame.size.height)!)
-        tabBarController?.tabBar.frame = CGRect(origin: point, size: CGSize(width:(tabBarController?.tabBar.frame.size.width)!, height:(tabBarController?.tabBar.frame.size.height)!))*/
     }
     
     private func setupSwipeGesture() {
