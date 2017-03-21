@@ -80,7 +80,9 @@ class WeatherMapTableViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.traitCollection.verticalSizeClass == .compact) {
+        if ((self.traitCollection.verticalSizeClass == .compact) ||
+            ((self.traitCollection.horizontalSizeClass == .regular) &&
+            (self.traitCollection.verticalSizeClass == .regular))) {
             mapView.removeAnnotations(mapView.annotations);
             
             let city = getSelectedCityAnnotation()
